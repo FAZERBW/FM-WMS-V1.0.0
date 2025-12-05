@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FM WMS | Auto Parts Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      // Shim process
+      window.process = { env: { NODE_ENV: 'development' } };
+      
+      // Tailwind Config for Class-based Dark Mode
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Inter', 'sans-serif'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'liquid': 'liquid 8s ease-in-out infinite',
+              'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'shrink': 'shrink linear forwards',
+              'fade-in': 'fadeIn 0.4s ease-out forwards',
+              'pop': 'pop 0.2s ease-out',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              liquid: {
+                '0%, 100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+                '50%': { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' },
+              },
+              slideUp: {
+                from: { transform: 'translate(-50%, 100%)', opacity: '0' },
+                to: { transform: 'translate(-50%, 0)', opacity: '1' }
+              },
+              shrink: {
+                from: { width: '100%' },
+                to: { width: '0%' }
+              },
+              fadeIn: {
+                from: { opacity: '0', transform: 'translateY(10px) scale(0.98)' },
+                to: { opacity: '1', transform: 'translateY(0) scale(1)' }
+              },
+              pop: {
+                '0%': { transform: 'scale(0.95)' },
+                '50%': { transform: 'scale(1.05)' },
+                '100%': { transform: 'scale(1)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Liquid Background Blobs - Updated for Sky Blue / Navy Theme */
+      .blob {
+        position: absolute;
+        filter: blur(80px);
+        z-index: -1;
+        opacity: 0.6;
+        animation: float 10s infinite ease-in-out;
+      }
+      
+      /* Dark Mode Blobs: Deep Blue & Sky Blue */
+      .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(14, 165, 233, 0.4); animation-delay: 0s; } /* Sky 500 */
+      .blob-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: rgba(3, 105, 161, 0.3); animation-delay: -2s; } /* Sky 700 */
+      .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: rgba(56, 189, 248, 0.3); animation-delay: -4s; } /* Sky 400 */
+
+      /* Light Mode Blobs: Lighter Sky & Navy */
+      html:not(.dark) .blob-1 { background: rgba(186, 230, 253, 0.8); } /* Sky 200 */
+      html:not(.dark) .blob-2 { background: rgba(224, 242, 254, 0.8); } /* Sky 100 */
+      html:not(.dark) .blob-3 { background: rgba(125, 211, 252, 0.4); } /* Sky 300 */
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.5); border-radius: 10px; }
+      
+      .glass-morphism {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      html:not(.dark) .glass-morphism {
+        background: rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/",
+    "uuid": "https://aistudiocdn.com/uuid@^13.0.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "zustand": "https://aistudiocdn.com/zustand@^5.0.8",
+    "zustand/middleware": "https://aistudiocdn.com/zustand@^5.0.8/middleware",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "qrcode": "https://esm.sh/qrcode@1.5.3",
+    "date-fns": "https://esm.sh/date-fns@2.30.0",
+    "recharts": "https://esm.sh/recharts@2.12.0?external=react,react-dom",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+    "zustand/": "https://aistudiocdn.com/zustand@^5.0.9/"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-500 overflow-hidden">
+    <div id="root" class="h-full"></div>
+  </body>
+</html>
